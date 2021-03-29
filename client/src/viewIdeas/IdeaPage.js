@@ -1,84 +1,111 @@
-import React, { useState, useContext } from "react"
-import {useHistory, Link, useParams} from "react-router-dom"
+import React, {useContext } from "react"
+import {useHistory, useParams} from "react-router-dom"
 import { useEffect } from "react/cjs/react.development"
 import {IdeaContext} from "../context.js/IdeaContext"
-import { firstCharacter } from "../recurring/first"
 import FormDiv from "../recurring/FormDiv"
+import ListDiv from "../recurring/ListDiv"
+import Navbar from "../Navbar"
+import useEdits from "../recurring/useEdits"
+import useAddDeleteGet from "../recurring/useAddDeleteGet"
 
 function IdeaPage(){
     const history = useHistory()
     const params = useParams()
+    const { travel, deleted, flipTravel, flipDeleted, remove, add, get} = useAddDeleteGet()
     //data and functions from context
-    const {editAnIdea, idea, deleteACharacter, addACharacter, character, getACharacter, getAnIdea} = useContext(IdeaContext)
-    //sets edits with the entire idea object
-    const [edits, setEdits] = useState(idea)
-    //helps refresh page everytime there is a delete
-    const [deleted, setDelete] = useState(false)
-    const [edited, setEdited] = useState(false)
-    //allows a user to travel to different pages
-    const [travel, setTravel]= useState(false)
+    const {editAnIdea, idea, character,setting, plot, getAnIdea, getPlots} = useContext(IdeaContext)
+    const {edits, edited, flipEdits, handleEditChange} = useEdits(idea)
+
+//add plots to the idea object on every refresh
+useEffect(()=>{
+    if(!idea.plots && idea._id){
+        getPlots(params.ideaId)
+    }
+    // eslint-disable-next-line
+}, [idea])
 //refreshes page on delete and makes sure edits is still current if page is refreshed
+//     useEffect(()=>{
+//         getAnIdea(params.ideaId)
+// // eslint-disable-next-line
+//     },[])
+//pushes to a character/Setting/Plot page when one is added or clicked on.
     useEffect(()=>{
-        getAnIdea(params.ideaId)
-        if(idea._id){
-            setEdits(idea)
-        }
-    },[deleted])
-//pushes to a character page when one is added or clicked on.
-    useEffect(()=>{
-        if(character._id && travel){
+        if(character._id && travel === 'character'){
             history.push({pathname: `/character/${character._id}`})
-            setTravel(false)
+            flipTravel()
+        }else if(setting._id && travel=== 'setting'){
+            history.push({pathname: `/setting/${setting._id}`})
+            flipTravel()
+        }else if(plot._id && travel === 'plot'){
+            history.push({pathname: `/plot/${plot._id}`})
+            flipTravel()
         }
-    }, [character])
+// eslint-disable-next-line
+    }, [character, setting, plot])
 
     useEffect(()=>{
+        getAnIdea(params.ideaId)
         if(edited){
-            console.log(edits)
             editAnIdea(idea._id, edits)
-            setEdited(false)
+            flipEdits()
+        }else if(deleted){
+            flipDeleted()
         }
-    }, [edited])
-//tracks form
-    function handleChange(name, edits){
-        console.log(name, edits)
-        setEdits(prev=>({...prev,[name]: edits}))
-        setEdited(true)
-    }
-    //adds a character with function from context and directs user to new character page
-    function addCharacter(){
-        addACharacter(idea._id, firstCharacter)
-        setTravel(true)
-    } 
-    //gets a character with id passed from click and function from context and directs user to existing character page   
-    function getCharacter(passedCharacter){
-        getACharacter(passedCharacter._id)
-        setTravel(true)
-    }
-    if(idea._id){
-        //maps over characters for display
-    const characterList = idea.characters.map(character=>{
-        return  (
-            <div key = {character._id}>
-                    <h3 onClick= {()=>getCharacter(character)}>{character.name}</h3>
-                    <p onClick = {(e)=>{
-                        e.preventDefault()
-                        setDelete(prev=>!prev)
-                        deleteACharacter(idea._id, character._id)}}>X</p>
-            </div>
-        )          
-    })
+        // eslint-disable-next-line
+    }, [edited, deleted])
+
+    if(idea._id && idea.plots){
         return(
-            <div>
-            <Link to = '/homePage'> <button>Go Back home</button></Link>
-            <FormDiv  display = 'inputbox' edits ={idea.title} name= 'title' type = 'text' function = {handleChange}/>
-            <FormDiv  display= 'textarea' edits = {idea.description} name = 'description' type = 'text' function = {handleChange}/>
+            <div className = 'notebook ideaContainer'>
+                <Navbar/>
                 <div>
-                    <ul>
-                        {characterList}
-                    </ul>
-                    <button onClick = {addCharacter}>+ Add a character to your Story!</button>
-                </div>
+                    <FormDiv  
+                    display = 'inputbox'
+                    edits ={idea.title} 
+                    name= 'title' 
+                    type = 'text' 
+                    function = {handleEditChange}
+                    guideMessage = ""
+                    prompt = {``}
+                    heading = ''
+                    />
+                    <FormDiv  
+                    display= 'textarea' 
+                    edits = {idea.description} 
+                    name = 'description' 
+                    type = 'text' 
+                    function = {handleEditChange}
+                    guideMessage = ""
+                    prompt = {``}
+                    heading = ''
+                    />
+                    <div className = 'idea'>
+                        <ListDiv 
+                        heading = 'Characters' 
+                        subject= 'character' 
+                        array={idea.characters} 
+                        getFunction = {get} 
+                        deleteFunction = {remove} 
+                        addFunction = {add}
+                        /> 
+                        <ListDiv 
+                        heading = 'Settings' 
+                        subject = 'setting' 
+                        array = {idea.settings} 
+                        getFunction = {get} 
+                        deleteFunction = {remove} 
+                        addFunction = {add}
+                        />  
+                        <ListDiv 
+                        heading = 'Plots' 
+                        subject = 'plot' 
+                        array = {idea.plots} 
+                        getFunction = {get} 
+                        deleteFunction = {remove} 
+                        addFunction = {add}
+                        />  
+                    </div>
+                </div> 
             </div>
         )
     }else{

@@ -16,7 +16,7 @@ const conflictSchema = new Schema(
             type: String
         }], 
         extras: [{
-            type:Object
+            type:String
         }]
     }
 )

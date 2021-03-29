@@ -34,7 +34,7 @@ plotRouter.get("/:plotId",(req,res,next)=>{
     Plot.findOne({ _id: req.params.plotId})
     .populate('characters')
     .populate('settings')
-    .populate('conflict')
+    .populate('conflicts')
     .populate('climax')
     .exec((err, plot) => {
             if(err){
@@ -48,7 +48,7 @@ plotRouter.get("/:plotId",(req,res,next)=>{
 plotRouter.post("/:ideaId",(req,res,next)=>{
     req.body.idea = req.params.ideaId
     const newPlot = new Plot(req.body)
-    Plot.save((err,savedPlot)=>{
+    newPlot.save((err,savedPlot)=>{
         if(err){
             res.status(500)
             return next(err)
@@ -73,23 +73,7 @@ plotRouter.put("/:ideaId/:characterId/addCharacter", (req,res,next)=>{
         res.status(200).send(updatedIdea)
     })
 })
-//add a setting
-plotRouter.put("/:ideaId/:settingId/addSetting", (req,res,next)=>{
-    Idea.findOneAndUpdate(
-        {_id:req.params.ideaId},
-        {$push:{settings:settingId}},
-        {new:true})
-        .populate('characters')
-        .populate('settings')
-        .populate('plots')
-        .exec((err, updatedIdea)=>{
-        if(err){
-            res.status(500)
-            return next(err)
-        }
-        res.status(200).send(updatedIdea)
-    })
-})
+
 //add a conflict
 plotRouter.put("/:plotId/newConflict", (req,res,next)=>{
     const newConflict = new Conflict(body)
@@ -110,7 +94,7 @@ plotRouter.put("/:plotId/newConflict", (req,res,next)=>{
 })
 //add a climax
 plotRouter.put("/:plotId/newClimax", (req,res,next)=>{
-    const newClimax = new Climax(body)
+    const newClimax = new Climax(req.body)
     Plot.findOneAndUpdate(
         {_id:req.params.plotId},
         {$set:{climax:newClimax}},
@@ -123,7 +107,8 @@ plotRouter.put("/:plotId/newClimax", (req,res,next)=>{
             res.status(500)
             return next(err)
         }
-        res.status(200).send(updatedPlot)
+        newClimax.save()
+        res.status(200).send({updatedPlot, newClimax})
     })
 })
 //remove a conflict from an Idea
@@ -177,23 +162,6 @@ plotRouter.put("/:plotId/:characterId/removeCharacter", (req,res,next)=>{
         res.status(200).send(updatedPlot)
     })
 })
-//remove a setting
-plotRouter.put("/:plotId/:settingId/removeSetting", (req,res,next)=>{
-    Plot.findOneAndUpdate(
-        {_id:req.params.plotId},
-        {$pull:{settings:req.params.settingId}},
-        {new:true})
-        .populate('conflict')
-        .populate('characters')
-        .populate('settings')
-        .exec((err, updatedPlot)=>{
-        if(err){
-            res.status(500)
-            return next(err)
-        }
-        res.status(200).send(updatedPlot)
-    })
-})
 //delete a plot
 plotRouter.delete("/delete",(req,res,next)=>{
     Plot.findOneAndDelete({_id:req.user}, 
@@ -208,7 +176,7 @@ plotRouter.delete("/delete",(req,res,next)=>{
 //edit a Plot
 plotRouter.put("/:plotId",(req,res,next)=>{
     Plot.findOneAndUpdate(
-        {_id:req.params.plotIdlot},
+        {_id:req.params.plotId},
         req.body,
         {new:true},
         (err,updatedPlot)=>{

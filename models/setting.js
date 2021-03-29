@@ -2,6 +2,17 @@ const {Schema, model} = require('mongoose')
 
 const settingSchema = new Schema(
     {
+        idea:{
+            type: Schema.Types.ObjectId,
+            ref: "idea",
+            required: true
+        },
+        description:{
+            type: String,
+        }, 
+        main:{
+            type:Boolean
+        },
         name: {
             type: String,
             required: true, 
@@ -12,15 +23,24 @@ const settingSchema = new Schema(
         sights:[{
             type: String,
         }],
+        feelings:[{
+            type: String,
+        }], 
+        tastes:[{
+            type: String,
+        }], 
+        sounds:[{
+            type: String,
+        }], 
         characters:[{
             type: Schema.Types.ObjectId,
             ref: "character"
         }],
-        when:{
-            type:Object
-        },
+        when:[{
+            type:String
+        }],
         extras : [{
-            type:Object, 
+            type:String, 
         }],
     }
 )

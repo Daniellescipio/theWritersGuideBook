@@ -1,84 +1,99 @@
 import React from "react"
 import { useState } from "react/cjs/react.development"
 function ArrayFormDiv(props){
+    const {name, addFunction, prompt, guideMessage, array, removeFunction, saveFunction,heading} = props
+    //tracks edits
     const [edits, setEdits] = useState('')
-    let array = props.array
+    //gets array from parent element
+    //toggles edit display
     const [toggle, setToggle] = useState([])
+    //tracks add form
     const [add, setAdd] = useState('')
-
-    useState(()=>{
-        if(array){
-            console.log(props.array)
-            let toggleArray = props.array.map(()=>false)
-            console.log(toggleArray)
-            setToggle(array.map(()=>false))
-        }
-    }, [])
-
-    function toggled(passedIndex, type){
+    //turns on guide
+    const [guide, setGuide] = useState(false)
+    //maps over array from parent component and creates an array of true and false values.
+    // useState(()=>{
+    //     if(array){
+    //         setToggle(array.map(()=>false))
+    //     }
+    // }, [])
+    //toggles display vs edit form when clicked
+    function toggled(passedIndex){
         const updatedArray = array.map((x, index)=> index===passedIndex ? true : false)
         console.log(updatedArray)
         setToggle(()=>(updatedArray))   
     }
-    console.log(toggle)
+    //tracks edit form
     function handleEdits(e){
         const {value} = e.target
         setEdits(()=>(value))
     }  
+    //tracks add form
     function handleAddChange(e){
         const {value} = e.target
         setAdd(()=>(value))
     }
+    //turns on guide
+    function toggleGuide(){
+        setGuide(prev=>!prev)
+    }
+    const guideClass = guide ? 'guide' : 'hidden'
+    const hoverMessage = guide ? 'click to hide the guide' : 'click for some help!'
+    //displays items to be listed and delete button, if toggled is true an edit form will show
+    const subjectList = array && array.map((subject, index)=>{   
+        if(!toggle[index]){
+            return(
+                    <div>
+                    <h2 className = 'editable' hover = 'click to edit me!' onClick = {()=>{
+                        setEdits(()=>({[name]:subject}))
+                        toggled(index)}}>{subject}
+                    </h2>
+                    <button className = 'delete' onClick = {()=>{
+                        removeFunction([name],index)
+                        }}>X
+                    </button>
 
-    const subjectList = array && array.map((subject, index)=>{     
-    return(
-        <div>
-            {!toggle[index]?
-            <div>
-            <h3 onClick = {()=>{
-                setEdits(()=>({[props.name]:subject}))
-                toggled(index, props.name)}}>{subject}
-            </h3>
-            <button onClick = {()=>{
-                props.removeFunction([props.name],index)
-                }}>Remove
-            </button>
-
-            </div>       
-                :
-            <form>
-            <textarea
-            id = {index}
-            name = {props.name}
-            value = {edits[props.name]}
-            onChange = {handleEdits}
-            type = 'text'
-            />
-            <button onClick = {()=>{
-                toggled(index, props.name)
-                props.saveFunction([props.name], index, edits)
-                }}>Save
-            </button>
-            </form>
-            }
-        </div>
-        )
+                    </div>       
+                )
+        }else{
+            return(
+                <div>
+                    <form >
+                    <textarea
+                    id = {index}
+                    name = {name}
+                    value = {edits[name]}
+                    onChange = {handleEdits}
+                    type = 'text'
+                    />
+                    <button onClick = {()=>{
+                        saveFunction([name], index, edits)
+                        }}>Save
+                    </button>
+                    </form>
+                </div>
+            )
+        }
     })  
     return(
-        <div className = {props.className}>
-            <h1>{props.heading}</h1>
-            <p className = 'guide'>{props.guide}</p>
-            {subjectList}
+        <div className = 'arrayDiv'>
+            <h2>{heading}</h2>
+            <p className = {guideClass}>{guideMessage}</p>
+            <p className = 'prompt' onClick={toggleGuide} hover = {hoverMessage}>{prompt} </p>
+            <div className = 'subjectList'>
+                {subjectList}
+            </div>
             <input
-            name = {props.name}
+            name = {name}
             type = 'text'
             onChange = {handleAddChange}
+            required
             value = {add}/>
-            <button onClick = {()=>{
+            <p className = 'addItem'onClick = {()=>{
                 setAdd(' ')
-                props.addFunction('goals', add)
-                }}>Add Goal
-            </button>
+                addFunction(name, add)
+                }}>Add
+            </p>
         </div>
     )
     

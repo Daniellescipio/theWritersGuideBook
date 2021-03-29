@@ -1,22 +1,31 @@
 import React from "react"
 import { useState } from "react/cjs/react.development"
 function FormDiv(props){
+    //tracks edits
     const [edits, setEdits] = useState(props.edits)
+    //switches between edit form and display
     const [toggle, setToggle] = useState(false)
-    console.log(props)
+    //shows display form and sets default value to info from parent element
     function toggled(){
         setToggle(prev=>!prev)
+        setEdits(props.edits)
     }
+    //tracks form
     function handleChange(e){
         const {value} = e.target
         setEdits(value)
     }
+    //displays input box or text area
     if(props.display === 'textarea'){
         return(
-            <div>
+            <div className = {props.name}>
+                <h1>{props.heading}</h1>
+                {props.guide}
                 <div>
                     {!toggle?
-                    <p onClick = {toggled}>{props.edits}</p>
+                    <div>
+                        <p className = 'editable' hover = 'click to edit me!' onClick = {toggled}>{props.edits}</p>
+                    </div>
                         :
                     <form>
                         <textarea
@@ -24,7 +33,8 @@ function FormDiv(props){
                         value = {edits}
                         onChange = {handleChange}
                         type = {props.type}/>
-                        <button onClick = {()=>{
+                        <button onClick = {(e)=>{
+                            e.preventDefault()
                             props.function(props.name, edits)
                             }}>Save</button>
                     </form>
@@ -37,10 +47,14 @@ function FormDiv(props){
 
     }else{
         return(
-            <div>
-                <div>
+            <div className = {props.name}>
+                <h1>{props.heading}</h1>
+                {props.guide}
+                <div className = {props.className}>
                     {!toggle?
-                    <h1 onClick = {toggled}>{props.edits}</h1>
+                    <div>
+                        <h1 hover = 'click to edit me!' className = 'editable' onClick = {toggled}>{props.edits}</h1>
+                    </div>
                         :
                     <form>
                         <input
@@ -49,6 +63,7 @@ function FormDiv(props){
                         onChange = {handleChange}
                         type = {props.type}/>
                         <button onClick = {()=>{
+
                             props.function(props.name, edits)
                             }}>Save</button>
                     </form>

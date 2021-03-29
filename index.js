@@ -25,8 +25,8 @@ app.use("/notebook/ideas", require("./routes/ideaRouter"))
 app.use("/notebook/characters", require("./routes/characterRouter"))
 app.use("/notebook/settings", require("./routes/settingRouter"))
 app.use("/notebook/plots", require("./routes/plotRouter"))
-// app.use("/notebook/conflicts", require("./routes/conflictRouter"))
-// app.use("/notebook/resolutions", require("./routes/resolutionRouter"))
+app.use("/notebook/conflicts", require("./routes/conflictRouter"))
+app.use("/notebook/climax", require("./routes/climaxRouter"))
  
 
 

@@ -23,7 +23,7 @@ const ideaSchema = new Schema(
             ref: "setting"
         }],
         extras : [{
-            type:Object, 
+            type: String, 
         }],
     }
 )

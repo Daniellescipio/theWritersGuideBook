@@ -1,84 +1,125 @@
-import React, {useState, useContext} from "react"
-import {Link, useParams} from "react-router-dom"
-import { useEffect } from "react/cjs/react.development"
+import React, {useContext, useEffect} from "react"
+import {useParams} from "react-router-dom"
 import {IdeaContext} from "../context.js/IdeaContext"
 import FormDiv from "../recurring/FormDiv"
 import ArrayFormDiv from "../recurring/ArrayFormDiv"
+import Navbar from "../Navbar"
+import useEdits from "../recurring/useEdits"
+
 function CharacterPage(){
     const params = useParams()
-    const {character, editACharacter, getACharacter} = useContext(IdeaContext)
-    //sets edits with entire character object
-    const [edits, setEdits] = useState(character)
-    //help refresh page when array items are added or deleted
-    const [edited, setEdited] = useState(false)
-console.log(edits, character)
+    //gets data and functions from contect
+    const {character, editSubject, getSubject} = useContext(IdeaContext)
+    const {edits, edited, flipEdits, handleEditChange, saveArrayEdits, addToArray, removeFromArray} = useEdits(character)
     useEffect(()=>{
-        //gets a character to display
-        getACharacter(params.characterId)
+        //gets a character to display from url parameters
+        getSubject('characters', params.characterId)
         //edits from context
         if(edited){
-            editACharacter(edits._id, edits)
-            setEdited(false)
+            editSubject('characters', edits._id, edits)
+            flipEdits(false)
         }
+// eslint-disable-next-line 
     },[edited])
-    useEffect(()=>{
-    //ensures edits/toggles are set when page is refreshed
-        if(character._id){
-            setEdits(character)
-        }
-    }, [character])
-    //sets edits when anything is edited
-    function handleEditChange(name, edits){
-        console.log(name, edits)
-        setEdits(prev=>({...prev,[name]: edits}))
-        setEdited(true)
-    }
-    //accepts array type and added value to that array in edits.
-    function saveArrayEdits(type, passedIndex, edits){
-        setEdits(prev=>{
-            const updatedArray = prev[type].map((x, index)=>index===passedIndex? edits : x)
-            return{...prev, [type]:updatedArray}
-        })
-        setEdited(true)
-    }
-    function addToArray(type, newItem){
-        setEdits(prev=>{
-            const updatedArray = [...prev[type], newItem]
-            return{...prev, [type]:updatedArray}
-        })
-        setEdited(true)
-    }
-    function removeFromArray(type, passedIndex){
-        setEdits(prev=>{
-            const updatedArray = prev[type].filter((x, index)=>index!==passedIndex)
-            return{...prev, [type]:updatedArray}
-        })
-        setEdited(true)
-    }
     return(
-        <div className = 'character'>
-            <Link to = '/homePage'> <button>Go Home</button></Link>
-            <Link to = {`/ideaPage/${character.idea}`}> <button>Go Back to Idea</button></Link>
-            <FormDiv display = 'input' edits = {character.name} name = 'name' type = 'text' function = {handleEditChange}/>
-            <FormDiv display = 'textarea' edits = {character.description} name = 'name' type = 'text' function = {handleEditChange}/>
+        <div className = 'notebook'>
+            <Navbar/>
+            <div className = 'character'>
+            <FormDiv 
+            display = 'input' 
+            edits = {character.name} 
+            name = 'name' 
+            type = 'text' 
+            function = {handleEditChange}
+            guideMessage = ""
+            prompt = ""
+            heading = ""
+            />
+            <div className="dropdown">
+                <button className="dropbtn"> {character.name} is the {character.type}</button>
+                <div className="type">
+                    <p hover = 'Your hero, think... Harry Potter, Superman, or Little Red Riding hood'onClick = {(e)=>{ e.preventDefault() 
+                        handleEditChange('type', 'Protagonist')}}>Protagonist</p>
+                    <p hover = 'Your villian, think...Satan, Swiper the Fox, or The Boogieman' onClick= {()=>handleEditChange('type', 'Antagonist')}>Antagonist</p>
+                    <p  hover = "Your hero's bff, think... Frodo, Ron weasly, or Robin from batman" onClick= {()=>handleEditChange('type', 'Dueteragonist')}>Dueteragonist</p>
+                    <p hover ="Extra's that you name, think...The people you can't name from the Matrix, The people you can't name from Harry potter, or The people you can't name from Mean girls... "onClick= {()=>handleEditChange('type', 'Tertiary')}>Tertiary</p>
+                    <p hover= "Wise sage, advice giver, secret sharer, think...Zuko's Uncle Iroh, yoda, or Dumbledor" onClick={()=>handleEditChange('type', 'Confidante')}>Confidante</p>
+                    <p hover = 'Who you hero has a crush on, think...Mary Jane from Spiderman, Cho/Ginny from Harry Potter, Prince Charming 'onClick= {()=>handleEditChange('type', 'Love Interest')}>Love Interest</p>
+                    <p hover ='opposing views from your character, but not the antagonist, think...Draco malfoy, Squidward tentacles, or the evil step sisters' onClick= {()=>handleEditChange('type', 'Foil')}>Foil</p>
+                </div>
+            </div>
+            <div className="dropdown">
+                <button className="dropbtn">{character.name} is a {character.quality} character</button>
+                <div className="quality">
+                    <p hover = 'a character theat evolves throughout your story, think Zuko from Last Avatar, or Neo from the matrix' onClick= {()=>handleEditChange('quality', 'Dynamic')}>Dynamic</p>
+                    <p hover = "a charcter that does not change throughout your story, think Harry Potter's aunt and uncle" onClick= {()=>handleEditChange('quality', 'Static')}>Static</p>
+                    <p hover = 'a cliche character that fits a mold. Think Oracles or Principals 'onClick= {()=>handleEditChange('quality', 'Stock')}>Stock</p>
+                    <p hover = 'a charcter whose very existence is a message or critique, think Aslan from the chronicles of Narnia, or Glenda the good from Oz 'onClick= {()=>handleEditChange('quality', 'Symbolic')}>Symbolic</p>
+                    <p hover = 'Dynamic, but more nuanced, The best Characters are Round!'onClick= {()=>handleEditChange('quality', 'Round')}>Round</p>
+                </div>
+            </div>
+
+            <FormDiv 
+            display = 'textarea' 
+            edits = {character.description} 
+            name = 'description' 
+            type = 'text' 
+            function = {handleEditChange}
+            guideMessage = ""
+            prompt = {``}
+            heading = ''
+            />
             <ArrayFormDiv 
             name = 'goals'
             array = {character.goals}
             saveFunction = {saveArrayEdits}
-            className = 'goals'
             heading = 'Goals'
-            guide = 'What are some things that motivate them? Are they always hungry? Do they need to save a family memeber from demons? do they have a crush on someone? '
+            guideMessage = 'What are some things that motivate them? Are they always hungry? Do they need to save a family memeber from demons? do they have a crush on someone? '
+            prompt = {`${character.name} is motivated to...`}
             addFunction = {addToArray}
-            removeFunction = {removeFromArray}/>
+            removeFunction = {removeFromArray}
+            />
             <ArrayFormDiv 
             name = 'traits'
             array = {character.traits}
             saveFunction = {saveArrayEdits}
-            className = 'traits'
             heading = 'Traits'
-            guide = 'What quirks makes your character special? relatable? do they pop gum? are the preppy or sulky? Do they stutter when theyre nervous? Ar they a know it all? Argumentative? talkative? quiet? meek?'
+            guideMessage = 'What quirks makes your character special? relatable? do they pop gum? are the preppy or sulky? Do they stutter when theyre nervous? Ar they a know it all? Argumentative? talkative? quiet? meek?'
+            prompt = {`${character.name} has a habit of...`}
             addFunction = {addToArray}
-            removeFunction = {removeFromArray}/>
+            removeFunction = {removeFromArray}
+            />
+            <ArrayFormDiv 
+            name = 'backStory'
+            array = {character.backStory}
+            saveFunction = {saveArrayEdits}
+            heading = 'Backstory'
+            guideMessage = "What events led to the character you're writing today? Did they lose a parent at a young age? Did they get bullied in school? Were they spolied as a child? Did they get into to many fights? Was there a tragic fire in their childhood home?"
+            prompt = {`When in ${character.name} was a kid...`}
+            addFunction = {addToArray}
+            removeFunction = {removeFromArray}
+            />
+            <FormDiv 
+            display = 'textarea' 
+            edits = {character.fatalFlaw} 
+            name = 'fatalFlaw' 
+            type = 'text' 
+            function = {handleEditChange}
+            guideMessage = "What makes your character hard to love, are they too proud?A know it all? Maybe they're Impulsive. What about this character makes it hard for them to achieve their goals."
+            prompt = {`THIS is going to be the death of ${character.name}...(literally?)`}
+            heading = 'Fatal Flaw'
+            />
+            <ArrayFormDiv 
+            name = 'extras'
+            array = {character.extras}
+            saveFunction = {saveArrayEdits}
+            heading = 'Extras'
+            guideMessage = "Anything Additional you'd like to add..."
+            prompt = {`Extra, Extra`}
+            addFunction = {addToArray}
+            removeFunction = {removeFromArray}
+            />
+            </div>
         </div>
     )
 }

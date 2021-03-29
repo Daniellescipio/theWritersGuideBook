@@ -4,11 +4,44 @@ const story = {
 }
 const firstCharacter = {
     name: 'What should we call this character?', 
-    description: 'Again as much or little as you want: thoughts to get you started...Are they tall, short, smart, funny, fluent in spanish, a wizard, how old are they, family? are they a student, do they have a job(is it saving the world).', 
+    description: 'Describe your character! here are some thoughts to get you started...Are they tall, short, smart, funny, fluent in spanish, a wizard, how old are they, family? are they a student, do they have a job(is it saving the world).', 
+    type:'Protagonist',
+    quality:'Dynamic',
     goals:[], 
     traits:[],
     backStory:[],
-    main: true,
-    fatalFlaw:'',
+    extras : [],
+    fatalFlaw:'To Sexy for their Shirt'
 }
-export {story, firstCharacter}
+const firstSetting = {
+    main: true,
+    name: 'Setting',
+    smells: [], 
+    sights:[],
+    sounds:[],
+    feelings:[],
+    taste:[],
+    characters:[],
+    when:[],
+    extras : [],
+}
+const firstPlot =  {
+    characters:[],
+    name: 'Dramatic Plot', 
+    description: 'Give us a general Idea of your plot, You might have more details to add here as you build your climax or resolution.', 
+    conflicts: [],
+    risingAction:[],
+    fallingAction:[],
+    resolutions:[],
+    extras : [],
+}
+
+const firstClimax = {
+    conflicts:[],
+    settings:[],
+    description: 'You can give a general description of your climax or write out the whole thing! Some people find it easier to write a series of events!',
+    events: [], 
+    resolutions:[], 
+    extras: []
+}
+export {story, firstCharacter, firstSetting, firstPlot, firstClimax}

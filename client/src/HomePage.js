@@ -24,6 +24,7 @@ function HomePage(){
             history.push(`/ideaPage/${idea._id}`)
             setTravel(false)
         }
+// eslint-disable-next-line
     }, [idea])
 // uses function from context and 'story model' to creat a new story and push the user to that new story page
     function addNewStory(){
@@ -40,19 +41,21 @@ function HomePage(){
         return  (
               <div key = {idea._id}>
                     <h3 onClick= {()=>getStory(idea)}>{idea.title}</h3>
-                    <p onClick = {()=>deleteAnIdea(idea._id)}>X</p>
+                    <p className = 'delete' onClick = {()=>deleteAnIdea(idea._id)}>X</p>
               </div>
           )          
   })
     return(
-        <div>
+        <div className = 'notebook homepage'>
+            <div>
             <h1>Written By: {user.username}</h1>
-            <p onClick = {addNewStory}> + Add a new Story Idea </p>
-            <p>Or view an Work In Progress</p>
-            <ul>
+            <button className = 'logout' onClick = {logout}>logout</button>
+            <p className = 'new' onClick = {addNewStory}> + Add a new Story Idea </p>
+            <p>Or View a Work In Progress</p>
+            <ul className ='wips'>
                 {ideaList}
             </ul>
-            <button onClick = {logout}>logout</button>
+            </div>
             
         </div>
 

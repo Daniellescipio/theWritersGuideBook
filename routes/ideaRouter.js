@@ -14,6 +14,17 @@ ideaRouter.get("/",(req,res,next)=>{
         res.status(200).send(ideas)
     }) 
 })
+//get all user ideas
+ideaRouter.get("/user",(req,res,next)=>{
+    Idea.find({user: req.user},(err,ideas)=>{
+        if(err){
+            res.status(500)
+            return next(err)
+        }
+        console.log(req.user, ideas)
+        res.status(200).send(ideas)
+    }) 
+})
 //get an idea
 ideaRouter.get("/:ideaId",(req,res,next)=>{
     Idea.findOne({ _id: req.params.ideaId})
@@ -62,6 +73,8 @@ ideaRouter.put("/:ideaId/newCharacter", (req,res,next)=>{
 })
 //add a setting
 ideaRouter.put("/:ideaId/newSetting", (req,res,next)=>{
+    console.log(req.body)
+    req.body.idea = req.params.ideaId
     const newSetting = new Setting(req.body)
     Idea.findOneAndUpdate(
         {_id:req.params.ideaId},
@@ -75,8 +88,8 @@ ideaRouter.put("/:ideaId/newSetting", (req,res,next)=>{
             res.status(500)
             return next(err)
         }
-        newSetting.save()
-        res.status(200).send(updatedIdea)
+        newSetting.save() 
+        res.status(200).send({updatedIdea, newSetting})
     })
 })
 //remove a character from an Idea

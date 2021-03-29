@@ -16,11 +16,11 @@ const climaxSchema = new Schema(
         events: [{
             type: String,
         }], 
-        resolution:[{
+        resolutions:[{
             type: String
         }], 
         extras: [{
-            type:Object
+            type:String
         }]
     }
 )

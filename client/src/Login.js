@@ -21,8 +21,9 @@ function Login(){
     }
     const prompt = logOrSign?  'LogIn' : 'Sign Up'
     return(
-        <div>
-            <h1>The writer's Guidebook</h1>
+        <div className = 'login'>
+            <div className = 'style'>
+            <h1>The Writer's Guidebook</h1>
             <div>
                 {logOrSign ?
                 <div>
@@ -35,19 +36,25 @@ function Login(){
                 }
             </div>
             <form>
+                <label>username:</label>
                 <input
                 name = 'username'
                 value = {credentials.username}
                 onChange = {handleChange}
                 type = 'text'/>
+                <br/>
+                <label>password:</label>
                 <input
                 name = 'password'
                 value = {credentials.password}
                 onChange = {handleChange}
-                type = 'text'/>
+                type = 'password'/>
+                <br/>
                 <button onClick = {getin}>{prompt}</button>
             </form>
+            </div>
         </div>
+
     )
 }
 export default Login 

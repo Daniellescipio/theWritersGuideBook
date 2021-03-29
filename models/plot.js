@@ -11,10 +11,6 @@ const plotSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "character"
         }],
-        settings:[{
-            type: Schema.Types.ObjectId,
-            ref: "setting"
-        }],
         name: {
             type: String,
             required: true, 
@@ -22,10 +18,10 @@ const plotSchema = new Schema(
         description: {
             type: String,
         }, 
-        conflict:{
+        conflicts:[{
             type: Schema.Types.ObjectId,
             ref: "conflict"
-        },
+        }],
         risingAction:[{
             type: String
         }],
@@ -36,11 +32,11 @@ const plotSchema = new Schema(
         fallingAction:[{
             type: String
         }],
-        resolution:[{
+        resolutions:[{
             type: String,
         }],
         extras : [{
-            type:Object, 
+            type:String, 
         }],
     }
 )

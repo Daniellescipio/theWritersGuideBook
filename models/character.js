@@ -14,6 +14,12 @@ const characterSchema = new Schema(
         description: {
             type: String,
         }, 
+        type: {
+            type:String
+        },
+        quality:{
+            type:String
+        },
         goals:[{
             type: String
         }], 
@@ -23,16 +29,11 @@ const characterSchema = new Schema(
         backStory:[{
             type: String
         }],
-        main:{
-            type: Boolean,
-            required:true,
-            default:true
-        },
         fatalFlaw:{
             type:String
         },
         extras : [{
-            type:Object, 
+            type:String, 
 
         }],
     }

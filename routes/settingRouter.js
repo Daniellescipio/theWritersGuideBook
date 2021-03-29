@@ -39,7 +39,7 @@ settingRouter.put("/:settingId/:characterId/addCharacter", (req,res,next)=>{
     })
 })
 //remove a character from a setting
-settingRouter.put("/settingId/:characterId/removeCharacter", (req,res,next)=>{
+settingRouter.put("/:settingId/:characterId/removeCharacter", (req,res,next)=>{
     Setting.findOneAndUpdate(
         {_id:req.params.settingId},
         {$pull:{characters:req.params.characterId}},
@@ -54,7 +54,7 @@ settingRouter.put("/settingId/:characterId/removeCharacter", (req,res,next)=>{
     })
 })
 //delete a setting
-settingRouter.delete("/delete",(req,res,next)=>{
+settingRouter.delete("/:settingId",(req,res,next)=>{
     Setting.findOneAndDelete({_id:req.setting}, 
         err=>{ 
         if(err){
