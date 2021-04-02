@@ -7,10 +7,14 @@ const plotSchema = new Schema(
             ref: "idea",
             required:true
         },
-        characters:[{
+        conflicts:[{
             type: Schema.Types.ObjectId,
-            ref: "character"
+            ref: "conflict"
         }],
+        climax:{
+            type: Schema.Types.ObjectId,
+            ref: "climax"
+        },
         name: {
             type: String,
             required: true, 
@@ -18,17 +22,9 @@ const plotSchema = new Schema(
         description: {
             type: String,
         }, 
-        conflicts:[{
-            type: Schema.Types.ObjectId,
-            ref: "conflict"
-        }],
         risingAction:[{
             type: String
         }],
-        climax:{
-            type: Schema.Types.ObjectId,
-            ref: "climax"
-        },
         fallingAction:[{
             type: String
         }],

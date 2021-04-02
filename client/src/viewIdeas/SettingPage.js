@@ -3,44 +3,48 @@ import {useParams} from "react-router-dom"
 import {IdeaContext} from "../context.js/IdeaContext"
 import FormDiv from "../recurring/FormDiv"
 import ArrayFormDiv from "../recurring/ArrayFormDiv"
-import Menu from "../recurring/Menu"
 import Navbar from "../Navbar"
 import useEdits from "../recurring/useEdits"
 function SettingPage(){
     const params = useParams()
     const {setting, getSubject, editSubject} = useContext(IdeaContext)
     const {edits, edited, flipEdits, handleEditChange, saveArrayEdits, addToArray, removeFromArray} = useEdits(setting)
+    console.log(edited)
     useEffect(()=>{
         //gets a setting to display from url parameters
         getSubject('settings', params.settingId)
-        //edits from context
+// eslint-disable-next-line 
+    },[])
+    useEffect(()=>{
         if(edited){
+            console.log('hey')
             editSubject('settings', setting._id, edits)
             flipEdits(false)
         }
-// eslint-disable-next-line 
-    },[edited])
+    },[edits])
 
     return(
         <div className = 'notebook'>
+            <Navbar idea = {setting.idea} type = {setting}/>
             <div>
-            <Navbar/>
-        <FormDiv 
-        display = 'input' 
-        edits = {setting.name} 
-        name = 'name' 
-        type = 'text' 
-        function = {handleEditChange}
-        guideMessage = ""
-        prompt = {`When in ${setting.name}`}
-        heading = ""
-        />
+            <FormDiv 
+            display = 'input' 
+            edits = {setting.name} 
+            name = 'name' 
+            type = 'text' 
+            function = {handleEditChange}
+            guideMessage = ""
+            prompt = {`When in ${setting.name}`}
+            heading = ""
+            />
         <div className = 'main'>
             <button  hover = {`click to swith to ${setting.main?'secondary':'main'}`} onClick={()=> {
                 if(setting.main){
-                    handleEditChange('main', true)
-                }else{
                     handleEditChange('main', false)
+                    flipEdits(true)
+                }else{
+                    handleEditChange('main', true)
+                    flipEdits(true)
                 }
                 flipEdits(true)
             }}>{setting.main?'Main':'Secondary'}</button>
@@ -81,7 +85,7 @@ function SettingPage(){
         saveFunction = {saveArrayEdits}
         heading = 'sounds'
         guideMessage = {"An island might have the call of tropical song birds and the crashing of waves. A bar may have blaring music and shouting patrons, the low buzz of the T.V may remind you of grandma's house."}
-        prompt = {`${setting.name} smells like...`}
+        prompt = {`${setting.name} sounds like...`}
         addFunction = {addToArray}
         removeFunction = {removeFromArray}
         />
@@ -104,16 +108,6 @@ function SettingPage(){
         prompt = {`It was around...`}
         addFunction = {addToArray}
         removeFunction = {removeFromArray}
-        />
-        <Menu
-        ownerId = {setting.idea}
-        type = 'characters'
-        editFunction = {handleEditChange}
-        arrayLabel = 'character'
-        ownerLabel = 'setting'
-        array = {setting.characters}
-        guideMessage = {setting.main?`What characters from your idea might appear here?`:`Is this someone's house or does someone work here?`}
-        prompt = {`I always see them around here...`}
         />
             </div>
         </div>

@@ -44,4 +44,12 @@ const firstClimax = {
     resolutions:[], 
     extras: []
 }
-export {story, firstCharacter, firstSetting, firstPlot, firstClimax}
+const firstConflict = {
+    name:'Conflicting conflict',
+    description:'What is the core of this conflict? What is the problem your characters are trying to solve?',
+    type: 'Man VS Man', 
+    obstacles:[], 
+    extras: []
+}
+
+export {story, firstCharacter, firstSetting, firstPlot, firstClimax, firstConflict}

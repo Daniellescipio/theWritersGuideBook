@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from "react"
-import {useParams} from "react-router-dom"
+import {Link, useParams} from "react-router-dom"
 import {IdeaContext} from "../context.js/IdeaContext"
 import FormDiv from "../recurring/FormDiv"
 import ArrayFormDiv from "../recurring/ArrayFormDiv"
@@ -11,6 +11,7 @@ function CharacterPage(){
     //gets data and functions from contect
     const {character, editSubject, getSubject} = useContext(IdeaContext)
     const {edits, edited, flipEdits, handleEditChange, saveArrayEdits, addToArray, removeFromArray} = useEdits(character)
+    console.log(character)
     useEffect(()=>{
         //gets a character to display from url parameters
         getSubject('characters', params.characterId)
@@ -23,7 +24,7 @@ function CharacterPage(){
     },[edited])
     return(
         <div className = 'notebook'>
-            <Navbar/>
+            <Navbar idea = {character.idea}type = {character}/>
             <div className = 'character'>
             <FormDiv 
             display = 'input' 
@@ -120,6 +121,7 @@ function CharacterPage(){
             removeFunction = {removeFromArray}
             />
             </div>
+            <Link to ={{pathname: `/characterform/${character._id}`, character}}>I need more help...</Link>
         </div>
     )
 }

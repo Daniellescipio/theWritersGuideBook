@@ -5,6 +5,7 @@ function FormDiv(props){
     const [edits, setEdits] = useState(props.edits)
     //switches between edit form and display
     const [toggle, setToggle] = useState(false)
+    const [guide, setGuide] = useState(false)
     //shows display form and sets default value to info from parent element
     function toggled(){
         setToggle(prev=>!prev)
@@ -15,12 +16,18 @@ function FormDiv(props){
         const {value} = e.target
         setEdits(value)
     }
+    function toggleGuide(){
+        setGuide(prev=>!prev)
+    }
     //displays input box or text area
+    const guideClass = guide ? 'guide' : 'hidden'
+    const hoverMessage = guide ? 'click to hide the guide' : 'click for some help!'
     if(props.display === 'textarea'){
         return(
             <div className = {props.name}>
                 <h1>{props.heading}</h1>
-                {props.guide}
+                <p className = {guideClass}>{props.guideMessage}</p>
+                <p className = 'prompt' onClick={toggleGuide} hover = {hoverMessage}>{props.prompt} </p>
                 <div>
                     {!toggle?
                     <div>
@@ -36,6 +43,7 @@ function FormDiv(props){
                         <button onClick = {(e)=>{
                             e.preventDefault()
                             props.function(props.name, edits)
+                            setToggle(false)
                             }}>Save</button>
                     </form>
                     }

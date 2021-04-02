@@ -12,11 +12,11 @@ function ArrayFormDiv(props){
     //turns on guide
     const [guide, setGuide] = useState(false)
     //maps over array from parent component and creates an array of true and false values.
-    // useState(()=>{
-    //     if(array){
-    //         setToggle(array.map(()=>false))
-    //     }
-    // }, [])
+    useState(()=>{
+        if(array){
+            setToggle(array.map(()=>false))
+        }
+    }, [])
     //toggles display vs edit form when clicked
     function toggled(passedIndex){
         const updatedArray = array.map((x, index)=> index===passedIndex ? true : false)

@@ -1,31 +1,37 @@
 import React, {useContext, useEffect} from "react"
-import {useHistory, useParams} from "react-router-dom"
+import {useHistory, useParams, Route} from "react-router-dom"
 import useEdits from "../recurring/useEdits"
 import useAddDeleteGet from "../recurring/useAddDeleteGet"
 import {IdeaContext} from "../context.js/IdeaContext"
 import Navbar from "../Navbar"
 import FormDiv from "../recurring/FormDiv"
-import Menu from "../recurring/Menu"
 import ArrayFormDiv from "../recurring/ArrayFormDiv"
 import ListDiv from "../recurring/ListDiv"
+import ConflictPage from "./ConflictPage"
 function PlotPage(){
     const history = useHistory()
     const params = useParams()
-    const { travel, deleted, flipTravel, flipDeleted, remove, add, get} = useAddDeleteGet()
-    //data and functions from context
     const { editSubject, getSubject, climax, conflict, plot} = useContext(IdeaContext)
+    const {travel, flipTravel, remove, add, get, deleted, flipDeleted} = useAddDeleteGet(plot.idea)
+    //data and functions from context
     const {edits, edited, flipEdits, saveArrayEdits, addToArray, removeFromArray, handleEditChange} = useEdits(plot)
     
     useEffect(()=>{
-        //gets a plot to display from url parameters
+        if(deleted){
+            flipDeleted()
+            getSubject('plots', params.plotId)
+        }
+        
+// eslint-disable-next-line 
+    },[deleted])
+    useEffect(()=>{
         getSubject('plots', params.plotId)
-        //edits from context
         if(edited){
             editSubject('plots', plot._id, edits)
             flipEdits(false)
         }
-// eslint-disable-next-line 
-    },[edited])
+// eslint-disable-next-line
+    }, [edited])
     useEffect(()=>{
         if(climax._id && travel === 'climax'){
             history.push({pathname: `/climax/${climax._id}`})
@@ -39,7 +45,7 @@ function PlotPage(){
     if(plot._id){
     return(
         <div className = 'notebook plot'>
-            <Navbar/>
+            <Navbar idea = {plot.idea} type = {plot}/>
             <div className = 'plotContainer'>
             <FormDiv  
                 display = 'inputbox'
@@ -55,16 +61,6 @@ function PlotPage(){
                 type = 'text' 
                 function = {handleEditChange}
             />
-            <Menu
-                ownerId = {plot.idea}
-                type = 'characters'
-                editFunction = {handleEditChange}
-                arrayLabel = 'character'
-                ownerLabel = 'plot'
-                array = {plot.characters}
-                guideMessage = {`Keeping track of the characters involved in each plot might avoid confusion later on...`}
-                prompt = {`The involved characters are...`}
-            />
             <ListDiv 
                 heading = 'Conflicts' 
                 subject= 'conflict' 
@@ -72,8 +68,8 @@ function PlotPage(){
                 getFunction = {get} 
                 deleteFunction = {remove} 
                 addFunction = {add}
-            /> 
-
+                owner = {plot}
+            />
             <ArrayFormDiv 
                 name = 'risingAction'
                 array = {plot.risingAction}
@@ -85,17 +81,15 @@ function PlotPage(){
                 removeFunction = {removeFromArray}
             /> 
             <div>
-                <h2                
-                    onClick = {()=>{
-                    if(plot.climax){
-                        get('climax', plot.climax)
-                    }else{
-                        add('climax')
-                    }
-                }}>Climax</h2>
-                <p>{plot.climax ? 
-                plot.climax.description: 
-                <button>Add A Climax</button>}</p>
+                <h2>Climax</h2>
+                <button                
+                onClick = {()=>{
+                if(plot.climax){
+                    get('climax', plot.climax)
+                }else{
+                    add('climax', plot)
+                }
+            }}>{plot.climax? plot.climax.description :'Add A Climax'}</button>
                 
             </div>
 

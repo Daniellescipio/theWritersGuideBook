@@ -61,35 +61,43 @@ function IdeaProvider(props){
                 setPlot(response.data)
             }else if(subject==='climax'){
                 setClimax(response.data)
-            }else if(subject==='conflict'){
+            }else if(subject==='conflicts'){
                 setConflict(response.data)
             }
         })
     }
-    function removeSubject(owner, id, subject, subjectId, removal){
-        userAxios.put(`/notebook/${owner}/${id}/${subjectId}/${removal}`)
+    function removeSubject(id, subject, subjectId, removal){
+        userAxios.put(`/notebook/ideas/${id}/${subjectId}/${removal}`)
         userAxios.delete(`/notebook/${subject}/${subjectId}`) 
     }
-    function addSubject(owner, ideaId, newSubject, added, subject){
-        userAxios.put(`/notebook/${owner}/${ideaId}/${added}`, newSubject)
-        .then(response=>{
-            if(subject === 'character'){
-                setCharacter(response.data.newCharacter)
-                setIdea(response.data.updatedIdea)
-            }else if(subject==='setting'){
-                setSetting(response.data.newSetting)
-                setIdea(response.data.updatedIdea)
-            }else if(subject==='plot'){
-                setPlot(response.data.newPlot)
-            }else if(subject==='climax'){
-                console.log('response', response.data)
+    function addSubject(ideaId, newSubject, added, subject, owner){
+        if(subject === 'character'|| subject === 'setting'|| subject === 'plot'){
+            userAxios.put(`/notebook/ideas/${ideaId}/${added}`, newSubject)
+            .then(response=>{
+                if(subject === 'character'){
+                    setCharacter(response.data.newCharacter)
+                    setIdea(response.data.updatedIdea)
+                }else if(subject==='setting'){
+                    setSetting(response.data.newSetting)
+                    setIdea(response.data.updatedIdea)
+                }else if(subject==='plot'){
+                    setPlot(response.data.newPlot)
+                    setIdea(response.data.updatedIdea)
+                }
+            })
+            .catch(err=>alert(err.response.data.errMessage))
+        }else if(subject === 'climax'|| subject === 'conflict'){
+        userAxios.put(`/notebook/ideas/${ideaId}/${owner._id}/${added}`, newSubject)
+            .then(response=>{
+            if(subject==='climax'){
                 setClimax(response.data.newClimax)
             }else if(subject==='conflict'){
                 setConflict(response.data.newConflict)
             }
         })
-
         .catch(err=>alert(err.response.data.errMessage))
+    }
+        
     }
     function editSubject(subject, subjectId, edits){
         userAxios.put(`/notebook/${subject}/${subjectId}`, edits)
@@ -108,19 +116,8 @@ function IdeaProvider(props){
             }
         })
     }
-    function getPlots(ideaId){
-        userAxios.get(`/notebook/plots/${ideaId}/plots`)
-        .then(response=>{
-            console.log(response.data)
-            setIdea(prev=>({...prev, plots:response.data}))})
-    }
-    function addPlot(ideaId, newPlot){
-        userAxios.post(`/notebook/plots/${ideaId}`, newPlot)
-        .then(response=>setPlot(response.data))
-    }
-    console.log(idea, plot)
     return(
-        <IdeaContext.Provider value={{idea, ideas, character, setting, plot, climax, conflict, getAllIdeas, getAnIdea, addNewIdea, deleteAnIdea, editAnIdea, removeSubject, addSubject, editSubject, getSubject, getPlots, addPlot}}>
+        <IdeaContext.Provider value={{ideas, idea, character, setting, plot, climax, conflict, getAllIdeas, getAnIdea, addNewIdea, deleteAnIdea, editAnIdea, removeSubject, addSubject, editSubject, getSubject}}>
             {props.children}
         </IdeaContext.Provider>
     )

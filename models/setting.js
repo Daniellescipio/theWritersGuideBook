@@ -32,10 +32,6 @@ const settingSchema = new Schema(
         sounds:[{
             type: String,
         }], 
-        characters:[{
-            type: Schema.Types.ObjectId,
-            ref: "character"
-        }],
         when:[{
             type:String
         }],

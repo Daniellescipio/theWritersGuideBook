@@ -8,6 +8,8 @@ import Login from "./Login"
 import CharacterPage from "./viewIdeas/CharacterPage"
 import PlotPage from "./viewIdeas/PlotPage"
 import ClimaxPage from "./viewIdeas/ClimaxPage"
+import ConflictPage from "./viewIdeas/ConflictPage"
+import CharacterForm from "./forms/character/CharacterForm"
 
 function App(){
     const {token} = useContext(UserContext)
@@ -21,6 +23,8 @@ function App(){
                 <Route path = "/setting/:settingId"><SettingPage/></Route>    
                 <Route path = "/plot/:plotId"><PlotPage/></Route>  
                 <Route path = "/climax/:climaxId"><ClimaxPage/></Route>   
+                <Route path = "/conflict/:conflictId"><ConflictPage/></Route> 
+                <Route path = "/characterform/"><CharacterForm/></Route>     
             </Switch>   
 
         </div>

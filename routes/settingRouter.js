@@ -30,12 +30,12 @@ settingRouter.put("/:settingId/:characterId/addCharacter", (req,res,next)=>{
         {$push:{characters:characterId}},
         {new:true})
         .populate('characters')
-        .exec((err, updatedIdea)=>{
+        .exec((err, updatedSetting)=>{
         if(err){
             res.status(500)
             return next(err)
         }
-        res.status(200).send(updatedIdea)
+        res.status(200).send(updatedSetting)
     })
 })
 //remove a character from a setting

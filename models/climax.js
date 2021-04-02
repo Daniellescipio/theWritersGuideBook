@@ -2,14 +2,16 @@ const {Schema, model} = require('mongoose')
 
 const climaxSchema = new Schema(
     {
-        conflicts:[{
+        idea:{
             type: Schema.Types.ObjectId,
-            ref: "conflict"
-        }],
-        settings:[{
+            ref: "idea",
+            required:true
+        },
+        plot:{
             type: Schema.Types.ObjectId,
-            ref: "setting"
-        }],
+            ref: "plot",
+            required:true
+        },
         description:{
             type: String
         },

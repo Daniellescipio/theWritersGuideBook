@@ -22,6 +22,18 @@ const ideaSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "setting"
         }],
+        plots:[{
+            type: Schema.Types.ObjectId,
+            ref: "plot"
+        }],
+        climax:{
+            type: Schema.Types.ObjectId,
+            ref: "climax"
+        },
+        conflicts:[{
+            type: Schema.Types.ObjectId,
+            ref: "conflict"
+        }],
         extras : [{
             type: String, 
         }],

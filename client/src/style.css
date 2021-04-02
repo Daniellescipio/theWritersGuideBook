@@ -64,6 +64,10 @@ input{
     color: black;
     font-size: 10px;
 }
+/*navbar*/
+nav{
+    text-align: center;
+}
 
 /*login in page styling*/
 .login{
@@ -149,6 +153,7 @@ margin-top: 18px;
     height:10px
 }
 /*navigation buttons*/
+
 button {
     border: none;
     background-color: transparent;
@@ -220,13 +225,16 @@ button {
     line-height: 2;
     grid-column: 1/3;
     }
-
+.plotContainer>.description{
+    margin: 0 20px;
+}
 /* styling for the menu div */
 .menu{
     height: 200px;
     border: 2px solid;
     border-radius: 5%;
     grid-column: 1/3;
+    margin: 25px;
 }
 .highlight{
     background-color: yellow;
@@ -236,7 +244,7 @@ display:grid;
 grid-template-columns: repeat(2,1fr);
 margin: 0 50px;
 }
-.confirm{
+.confirmsetting{
     position: absolute;
     width: 400px;
     text-align: center;
@@ -245,6 +253,17 @@ margin: 0 50px;
     border: 2px solid;
     height: 100px;
     bottom: 35px;
+    display:grid;
+}
+.confirmplot{
+    position: absolute;
+    width: 400px;
+    text-align: center;
+    background-image: url(https://cdn.shopify.com/s/files/1/1413/2106/products/Vintage_Hand_Drawn_Notebook_Paper_12_x_12_ST_1024x1024.png?v=1502252447);
+    background-position: right;
+    border: 2px solid;
+    height: 100px;
+    top: 275px;
     display:grid;
 }
 

@@ -9,15 +9,20 @@ function useFunctions(props){
     }, [props])
     console.log(edits, edited)
     
-    function flipEdits(){
-        setEdited(false)
+    function flipEdits(value){
+        if(value){
+            setEdited(true)
+        }else{
+            setEdited(false)
+        }
+   
    
     }
     //sets edits when String data is edited  & 'turns on' useEffect
     function handleEditChange(name, edits){
-        console.log('blah',name, edits)
+        console.log('blah',name, edits, edited)
         setEdits((prev)=>({...prev, [name]: edits}))
-        setEdited(true)
+        flipEdits(true)
     }
     //sets edits when items in data in an array is edited  & 'turns on' useEffect
     function saveArrayEdits(type, passedIndex, edits){

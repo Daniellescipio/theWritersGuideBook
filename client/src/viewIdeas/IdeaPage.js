@@ -11,18 +11,10 @@ import useAddDeleteGet from "../recurring/useAddDeleteGet"
 function IdeaPage(){
     const history = useHistory()
     const params = useParams()
-    const { travel, deleted, flipTravel, flipDeleted, remove, add, get} = useAddDeleteGet()
-    //data and functions from context
-    const {editAnIdea, idea, character,setting, plot, getAnIdea, getPlots} = useContext(IdeaContext)
+     //data and functions from context and custom hooks
+     const {editAnIdea, idea, character,setting, plot, getAnIdea} = useContext(IdeaContext)
+    const { travel, deleted, flipTravel, flipDeleted, remove, add, get} = useAddDeleteGet(idea._id)
     const {edits, edited, flipEdits, handleEditChange} = useEdits(idea)
-
-//add plots to the idea object on every refresh
-useEffect(()=>{
-    if(!idea.plots && idea._id){
-        getPlots(params.ideaId)
-    }
-    // eslint-disable-next-line
-}, [idea])
 //refreshes page on delete and makes sure edits is still current if page is refreshed
 //     useEffect(()=>{
 //         getAnIdea(params.ideaId)
@@ -54,10 +46,10 @@ useEffect(()=>{
         // eslint-disable-next-line
     }, [edited, deleted])
 
-    if(idea._id && idea.plots){
+    if(idea._id){
         return(
             <div className = 'notebook ideaContainer'>
-                <Navbar/>
+                <Navbar idea = {idea._id} type = {idea}/>
                 <div>
                     <FormDiv  
                     display = 'inputbox'
@@ -87,6 +79,7 @@ useEffect(()=>{
                         getFunction = {get} 
                         deleteFunction = {remove} 
                         addFunction = {add}
+                        owner = {idea}
                         /> 
                         <ListDiv 
                         heading = 'Settings' 
@@ -95,6 +88,7 @@ useEffect(()=>{
                         getFunction = {get} 
                         deleteFunction = {remove} 
                         addFunction = {add}
+                        owner = {idea}
                         />  
                         <ListDiv 
                         heading = 'Plots' 
@@ -103,6 +97,7 @@ useEffect(()=>{
                         getFunction = {get} 
                         deleteFunction = {remove} 
                         addFunction = {add}
+                        owner = {idea}
                         />  
                     </div>
                 </div> 
