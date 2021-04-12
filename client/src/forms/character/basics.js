@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react/cjs/react.development";
 import faker from "faker";
-import useShow from "/home/dscipio/Vschool/levelSix/the-writers-notebook/client/src/recurring/useShowObject";
+import useShow from "../../recurring/useShowObject";
 function Basics(props) {
   const { showObject, toggleObject } = useShow();
   const {setFunction, toggleFunction } = props;

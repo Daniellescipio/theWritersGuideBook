@@ -1,6 +1,6 @@
 import React from "react"
-import { useEffect, useState } from "react/cjs/react.development"
-import useShow from "/home/dscipio/Vschool/levelSix/the-writers-notebook/client/src/recurring/useShowObject"
+import {useState } from "react/cjs/react.development"
+import useShow from "../../recurring/useShowObject"
 function Physical(props){
     const {setFunction, toggleFunction} = props
     const character = props.character.basics.name ? props.character.basics : {}
