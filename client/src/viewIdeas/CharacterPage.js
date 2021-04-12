@@ -11,7 +11,6 @@ function CharacterPage(){
     //gets data and functions from contect
     const {character, editSubject, getSubject} = useContext(IdeaContext)
     const {edits, edited, flipEdits, handleEditChange, saveArrayEdits, addToArray, removeFromArray} = useEdits(character)
-    console.log(character)
     useEffect(()=>{
         //gets a character to display from url parameters
         getSubject('characters', params.characterId)
@@ -22,6 +21,7 @@ function CharacterPage(){
         }
 // eslint-disable-next-line 
     },[edited])
+    console.log(params)
     return(
         <div className = 'notebook'>
             <Navbar idea = {character.idea}type = {character}/>
@@ -121,7 +121,7 @@ function CharacterPage(){
             removeFunction = {removeFromArray}
             />
             </div>
-            <Link to ={{pathname: `/characterform/${character._id}`, character}}>I need more help...</Link>
+            <Link to ={{pathname: `/characterform/${character._id}`, state:character._id}}>I need more help...</Link>
         </div>
     )
 }

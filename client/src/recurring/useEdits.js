@@ -7,8 +7,6 @@ function useFunctions(props){
     useEffect(()=>{
         setEdits(props)
     }, [props])
-    console.log(edits, edited)
-    
     function flipEdits(value){
         if(value){
             setEdited(true)
@@ -20,7 +18,6 @@ function useFunctions(props){
     }
     //sets edits when String data is edited  & 'turns on' useEffect
     function handleEditChange(name, edits){
-        console.log('blah',name, edits, edited)
         setEdits((prev)=>({...prev, [name]: edits}))
         flipEdits(true)
     }

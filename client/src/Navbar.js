@@ -1,7 +1,6 @@
 import React from "react"
 import {Link} from "react-router-dom"
 function Navbar(props){
-    console.log(props)
     if(props.type.plot){
         return(
             <nav className = 'nav'>

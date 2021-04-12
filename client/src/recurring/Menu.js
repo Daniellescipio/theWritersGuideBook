@@ -25,7 +25,6 @@ function Menu(props) {
   const [confirm, setConfirm] = useState(false)
   //controls whether the add or get function gets called
   const [addOrGet, setAddOrGet] = useState('')
-  console.log(array)
   //gets an Idea for the 'array to add from' the ID comes from parent component
   useEffect(() => {
     if (ownerId) {
@@ -74,7 +73,6 @@ function Menu(props) {
 
   //toggles highlight and adds/removes items from display array
   function toggleTrueFalse(passedIndex, subject) {
-    console.log('the subject is' , subject)
     setToggle(prev => {
       const updatedArray = prev.map((x, index) =>
         index === passedIndex ? !prev[index] : prev[index]
@@ -84,7 +82,6 @@ function Menu(props) {
     if(toggle[passedIndex]){
       setDisplayArray(prev=>[...prev])
     }else{
-      console.log('expected')
       setDisplayArray(prev => [...prev, subject]); 
     }
   }
@@ -96,7 +93,6 @@ function Menu(props) {
 
   //removes items from array and refreshed page
   function removeFromArray(subject) {
-    console.log(subject);
     setDisplayArray(prev => {
       return prev.filter(x=>subject._id!==x._id)
   
@@ -105,10 +101,8 @@ function Menu(props) {
   }
   //adds or gets a new character
   function addOrGetFunction(){
-    console.log(type)
     if(addOrGet==='add'){
       if(type === 'characters'){
-        console.log('hello')
         addSubject(idea._id, firstCharacter, 'newCharacter', type)
       }else if(type === 'settings'){
         addSubject(idea._id, firstSetting, 'newSetting', type)
@@ -140,7 +134,6 @@ function Menu(props) {
   const displayList =
     array&&
     array.map((x,index) => {
-      console.log(x)
       return (
       <div key = {index}>
        <li onClick = {()=>{

@@ -5,7 +5,6 @@ function ListDiv(props){
             <div key = {subject._id}>
                     <h3 onClick= {()=>props.getFunction(props.subject,subject)}>{subject.name||subject.name}</h3>
                     <p className = 'delete' onClick = {(e)=>{
-                        console.log('delete', props.subject, subject)
                         e.preventDefault()
                         props.deleteFunction(props.subject, subject)}}>X</p>
             </div>

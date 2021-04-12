@@ -20,7 +20,6 @@ function ArrayFormDiv(props){
     //toggles display vs edit form when clicked
     function toggled(passedIndex){
         const updatedArray = array.map((x, index)=> index===passedIndex ? true : false)
-        console.log(updatedArray)
         setToggle(()=>(updatedArray))   
     }
     //tracks edit form
@@ -43,7 +42,7 @@ function ArrayFormDiv(props){
     const subjectList = array && array.map((subject, index)=>{   
         if(!toggle[index]){
             return(
-                    <div>
+                    <div key  = {index}>
                     <h2 className = 'editable' hover = 'click to edit me!' onClick = {()=>{
                         setEdits(()=>({[name]:subject}))
                         toggled(index)}}>{subject}
@@ -57,7 +56,7 @@ function ArrayFormDiv(props){
                 )
         }else{
             return(
-                <div>
+                <div key  = {index}>
                     <form >
                     <textarea
                     id = {index}

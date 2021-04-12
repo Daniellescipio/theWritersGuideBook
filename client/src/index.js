@@ -5,6 +5,7 @@ import {UserProvider} from "./context.js/userContext"
 import {IdeaProvider} from "./context.js/IdeaContext"
 import {BrowserRouter as Router} from "react-router-dom"
 import "./style.css"
+import "./formstyle.css"
 
 ReactDom.render(
 <Router>

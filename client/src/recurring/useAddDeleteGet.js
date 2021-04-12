@@ -6,7 +6,6 @@ function useAddDeleteGet(idea){
     const [travel, setTravel] = useState('')
     const [deleted, setDeleted] = useState(false)
     const {removeSubject, addSubject, getSubject} = useContext(IdeaContext)
-    console.log(idea)
     function flipTravel(){
         setTravel('')
     }
@@ -29,7 +28,6 @@ function useAddDeleteGet(idea){
     }
     //adds a character/setting/plot  with function from context and directs user to new page
     function add(type, owner){
-        console.log(type, owner)
         if(type==='character'){
             addSubject(idea, firstCharacter, 'newCharacter', type)
             setTravel(type)
@@ -40,7 +38,6 @@ function useAddDeleteGet(idea){
             addSubject(idea, firstPlot, 'newPlot', type)
             setTravel(type)
         }else if(type === 'climax'){
-            console.log(idea)
             addSubject(idea, firstClimax, 'newClimax', type, owner)
             setTravel(type)
         }else if(type === 'conflict'){

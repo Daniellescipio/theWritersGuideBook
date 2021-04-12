@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from "react"
-import {useHistory, useParams, Route} from "react-router-dom"
+import {useHistory, useParams} from "react-router-dom"
 import useEdits from "../recurring/useEdits"
 import useAddDeleteGet from "../recurring/useAddDeleteGet"
 import {IdeaContext} from "../context.js/IdeaContext"
@@ -7,7 +7,6 @@ import Navbar from "../Navbar"
 import FormDiv from "../recurring/FormDiv"
 import ArrayFormDiv from "../recurring/ArrayFormDiv"
 import ListDiv from "../recurring/ListDiv"
-import ConflictPage from "./ConflictPage"
 function PlotPage(){
     const history = useHistory()
     const params = useParams()

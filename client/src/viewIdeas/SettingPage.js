@@ -9,7 +9,6 @@ function SettingPage(){
     const params = useParams()
     const {setting, getSubject, editSubject} = useContext(IdeaContext)
     const {edits, edited, flipEdits, handleEditChange, saveArrayEdits, addToArray, removeFromArray} = useEdits(setting)
-    console.log(edited)
     useEffect(()=>{
         //gets a setting to display from url parameters
         getSubject('settings', params.settingId)
@@ -17,7 +16,6 @@ function SettingPage(){
     },[])
     useEffect(()=>{
         if(edited){
-            console.log('hey')
             editSubject('settings', setting._id, edits)
             flipEdits(false)
         }

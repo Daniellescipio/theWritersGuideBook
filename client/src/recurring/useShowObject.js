@@ -5,7 +5,6 @@ function useShow(){
         start:true,
     })
     function toggleObject(name, value){
-        console.log(name,value)
         setShowObject({[name]:value})
     }
     return{showObject, toggleObject}

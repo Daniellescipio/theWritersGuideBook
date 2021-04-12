@@ -46,14 +46,14 @@ function ConflictPage() {
                 flipfunction = {flipEdits}
             />
              <div className="dropdown">
-                <button className="dropbtn">This conflict is {conflict.type} character</button>
+                <button className="dropbtn">This conflict is {conflict.type}</button>
                 <div className="type">
                     <p hover = 'An internal struggle a charcter faces, think Fight Club or Sixth Sense' onClick= {()=>handleEditChange('type', 'Character VS Self')}>Character VS Self</p>
                     <p hover = "A battle between two opposing characters, think harry potter and voldemort or Cinderella and the evil step mother" onClick= {()=>handleEditChange('type', 'Character VS Character')}>Character VS Character</p>
                     <p hover = 'A charcter battles mother nature, think Day After Tomorrow or Journey to the Center of the Earth' onClick= {()=>handleEditChange('type', 'Character VS Nature')}>Character VS Nature</p>
                     <p hover = "A battle between a (mortal)Character and 'the other side', think Gothika, Twilight, or A Wrinkle in Time "onClick= {()=>handleEditChange('type', 'Charcter VS Supernatural')}>Charcter VS Supernatural</p>
-                    <p hover = 'A battle between a character and the machines, think the matrix, Irobot, or Farenheight 451'onClick= {()=>handleEditChange('type', 'Round')}>Character VS Technology</p>
-                    <p hover = 'A battle between a character and the rest of the world, typically anti-heros, think Venom, or Bonnie and Clyde'onClick= {()=>handleEditChange('type', 'Round')}>Character VS Society</p>
+                    <p hover = 'A battle between a character and the machines, think the matrix, Irobot, or Farenheight 451'onClick= {()=>handleEditChange('type', 'Character VS Technology')}>Character VS Technology</p>
+                    <p hover = 'A battle between a character and the rest of the world, typically anti-heros, think Venom, or Bonnie and Clyde'onClick= {()=>handleEditChange('type', 'Character VS Society')}>Character VS Society</p>
                 </div>
             </div>
             <ArrayFormDiv

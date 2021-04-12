@@ -20,7 +20,6 @@ function UserProvider(props){
     function getIn(getInMethod, credentials){
         axios.post(`/auth/${getInMethod}`, credentials)
         .then(response=>{
-            console.log(response.data)
             localStorage.setItem("token", response.data.token)
             localStorage.setItem("user", JSON.stringify(response.data.user))
             setUserInfo(
@@ -34,7 +33,6 @@ function UserProvider(props){
     function editUser(edits){
         userAxios.put(`/parental/users/update/`, edits)
         .then(response=>{
-            console.log(response.data)
             setUserInfo((prev)=>
                 ({...prev,
                     user:response.data

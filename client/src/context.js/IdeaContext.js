@@ -31,7 +31,6 @@ function IdeaProvider(props){
         .then(response=>setIdeas(response.data))
     }
     function getAnIdea(ideaId){
-        console.log("getting an Id")
         userAxios.get(`/notebook/ideas/${ideaId}`)
         .then(response=>{
             setIdea(response.data)
@@ -40,7 +39,6 @@ function IdeaProvider(props){
     function editAnIdea(ideaId, edits){
         userAxios.put(`/notebook/ideas/${ideaId}`, edits)
         .then(response=>{
-            console.log(response.data)
             setIdea(response.data)})
     }
     function deleteAnIdea(ideaId){
@@ -107,7 +105,6 @@ function IdeaProvider(props){
             }else if(subject==='settings'){
                 setSetting(response.data)
             }else if(subject==='plots'){
-                console.log(response.data)
                 setPlot(response.data)
             }else if(subject==='climax'){
                 setClimax(response.data)
