@@ -6,7 +6,7 @@ import Basics from "./basics"
 import FinalForm from "./FinalForm"
 import Personality from "./Personality"
 import Physical from "./Physical"
-import useShow from "/home/dscipio/Vschool/levelSix/the-writers-notebook/client/src/recurring/useShowObject"
+import useShow from "../../recurring/useShowObject"
 function CharacterForm(props){
     const {editSudject} = IdeaContext
     const params = useParams()
