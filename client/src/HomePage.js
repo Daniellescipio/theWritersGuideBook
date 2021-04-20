@@ -1,64 +1,60 @@
-import React, {useContext} from "react"
-import {useHistory} from "react-router-dom"
+import React, { useState, useContext } from "react"
 import {UserContext} from "./context.js/userContext"
-import {IdeaContext} from "./context.js/IdeaContext"
-import { useEffect, useState } from "react/cjs/react.development"
-import {story} from "./recurring/first"
-//import IdeaContext from "./context.js/ideaContext"
-
 function HomePage(){
-    const history = useHistory()
-    //gets data and functions from context
-    const {user, logout} = useContext(UserContext)
-    const {idea, ideas, getAllIdeas, getAnIdea, addNewIdea, deleteAnIdea} = useContext(IdeaContext)
-    //allows us to travel to the next page
-    const [travel, setTravel]= useState(false)
-//gets users previous ideas to display
-    useEffect(()=>{
-        getAllIdeas()
-    // eslint-disable-next-line
-    },[])
-    //pushes the user to a new/existing idea page everytime they click a different idea
-    useEffect(()=>{
-        if(idea._id && travel){
-            history.push(`/ideaPage/${idea._id}`)
-            setTravel(false)
+    const [credentials, setCredentials] = useState({username:'', password:''})
+    const [logOrSign, setLogOrSign] = useState(true)
+    const {getIn} = useContext(UserContext)
+    function handleChange(e){
+        const {name, value} = e.target
+        setCredentials(prev=>({...prev, [name]:value}))
+    }
+    function getin(e){
+        e.preventDefault()
+        if(logOrSign){
+            getIn('login', credentials)
+        }else{
+            getIn('signup', credentials)
         }
-// eslint-disable-next-line
-    }, [idea])
-// uses function from context and 'story model' to creat a new story and push the user to that new story page
-    function addNewStory(){
-            addNewIdea(story)
-            setTravel(true)
     }
-// uses function from context and ideaId from clickEvent to push the user to that existing story page
-    function getStory(passedIdea){
-        getAnIdea(passedIdea._id)
-        setTravel(true)
+    function toggle(){
+        setLogOrSign(prev=>!prev)
     }
-    //maps over the iea list and displays a link to get a new story and a button to delete delete a story
-    const ideaList = ideas.map(idea=>{
-        return  (
-              <div key = {idea._id}>
-                    <h3 onClick= {()=>getStory(idea)}>{idea.title}</h3>
-                    <p className = 'delete' onClick = {()=>deleteAnIdea(idea._id)}>X</p>
-              </div>
-          )          
-  })
+    const prompt = logOrSign?  'LogIn' : 'Sign Up'
     return(
-        <div className = 'notebook homepage'>
+        <div className = 'login'>
+            <div className = 'style'>
+            <h1>The Writer's Guidebook</h1>
             <div>
-            <h1>Written By: {user.username}</h1>
-            <button className = 'logout' onClick = {logout}>logout</button>
-            <p className = 'new' onClick = {addNewStory}> + Add a new Story Idea </p>
-            <p>Or View a Work In Progress</p>
-            <ul className ='wips'>
-                {ideaList}
-            </ul>
+                {logOrSign ?
+                <div>
+                     <h3>New Here? Click <span onClick = {toggle}>here</span> to create a new account!</h3>
+                </div> 
+                :
+                <div>
+                     <h3>Already have an account?  Click <span onClick = {toggle}>here</span> to Log in!</h3>
+                </div>
+                }
             </div>
-            
+            <form>
+                <label>username:</label>
+                <input
+                name = 'username'
+                value = {credentials.username}
+                onChange = {handleChange}
+                type = 'text'/>
+                <br/>
+                <label>password:</label>
+                <input
+                name = 'password'
+                value = {credentials.password}
+                onChange = {handleChange}
+                type = 'password'/>
+                <br/>
+                <button onClick = {getin}>{prompt}</button>
+            </form>
+            </div>
         </div>
 
     )
 }
-export default HomePage
+export default HomePage 

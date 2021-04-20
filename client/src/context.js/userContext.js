@@ -20,6 +20,7 @@ function UserProvider(props){
     function getIn(getInMethod, credentials){
         axios.post(`/auth/${getInMethod}`, credentials)
         .then(response=>{
+            console.log(response)
             localStorage.setItem("token", response.data.token)
             localStorage.setItem("user", JSON.stringify(response.data.user))
             setUserInfo(

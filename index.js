@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const expressJwt = require('express-jwt')
 const path = require("path")
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 7000;
 
 app.use(morgan("dev"));
 app.use(express.json());
