@@ -12,13 +12,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "client", "build")))
 
 mongoose.connect(
-  process.env.MONGODB_URI,
-  {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-  },
+  process.env.MONGODB_URI, {useNewUrlParser: true},
   () => console.log("connected to the DB")
 );
 app.use("/auth", require("./routes/authRouter"))
