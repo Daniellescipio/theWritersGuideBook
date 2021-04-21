@@ -5,14 +5,16 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const expressJwt = require('express-jwt')
 const path = require("path")
-const port = process.env.PORT || 7000;
+const port = process.env.PORT || 5000;
+const dev_db_url = 'mongodb+srv://developerWilliams:R3rbmFmZZL43eY9@cluster0.askcq.mongodb.net/guidebook?retryWrites=true&w=majority'
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
 
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "client", "build")))
 
 mongoose.connect(
-  process.env.MONGODB_URI, {useNewUrlParser: true},
+  mongoDB, {useNewUrlParser: true, useUnifiedTopology: true },
   () => console.log("connected to the DB")
 );
 app.use("/auth", require("./routes/authRouter"))

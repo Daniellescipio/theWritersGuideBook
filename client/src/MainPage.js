@@ -1,8 +1,7 @@
-import React, {useContext} from "react"
+import React, {useContext, useState, useEffect} from "react"
 import {useHistory} from "react-router-dom"
 import {UserContext} from "./context.js/userContext"
 import {IdeaContext} from "./context.js/IdeaContext"
-import { useEffect, useState } from "react/cjs/react.development"
 import {story} from "./recurring/first"
 //import IdeaContext from "./context.js/ideaContext"
 
@@ -13,7 +12,7 @@ function MainPage(){
     const {idea, ideas, getAllIdeas, getAnIdea, addNewIdea, deleteAnIdea} = useContext(IdeaContext)
     //allows us to travel to the next page
     const [travel, setTravel]= useState(false)
-//gets users previous ideas to display
+    //gets users previous ideas to display
     useEffect(()=>{
         getAllIdeas()
     // eslint-disable-next-line
