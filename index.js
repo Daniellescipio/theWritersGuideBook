@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const expressJwt = require('express-jwt')
 const path = require("path")
 const port = process.env.PORT || 5000;
-const dev_db_url = 'mongodb+srv://developerWilliams:R3rbmFmZZL43eY9@cluster0.askcq.mongodb.net/guidebook?retryWrites=true&w=majority'
+const dev_db_url = ''
 const mongoDB = process.env.MONGODB_URI || dev_db_url;
 
 app.use(morgan("dev"));
@@ -38,5 +38,6 @@ app.get("*", (req, res) => {
 });
 
 app.listen(port, () => {
+  console.log(process.env.MONGODB_URI)
   console.log("connected to the server");
 });
