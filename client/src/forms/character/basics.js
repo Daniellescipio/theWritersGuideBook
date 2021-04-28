@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react/cjs/react.development";
+import React, {useState} from "react";
 import faker from "faker";
 import useShow from "../../recurring/useShowObject";
 function Basics(props) {

@@ -1,6 +1,5 @@
-import React, {useContext } from "react"
+import React, {useContext, useEffect } from "react"
 import {useHistory, useParams} from "react-router-dom"
-import { useEffect } from "react/cjs/react.development"
 import {IdeaContext} from "../context.js/IdeaContext"
 import FormDiv from "../recurring/FormDiv"
 import ListDiv from "../recurring/ListDiv"

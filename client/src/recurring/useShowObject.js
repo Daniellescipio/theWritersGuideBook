@@ -1,4 +1,4 @@
-import { useState } from "react/cjs/react.development"
+import { useState } from "react"
 
 function useShow(){
     const [showObject, setShowObject] = useState({

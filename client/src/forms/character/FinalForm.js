@@ -1,5 +1,4 @@
-import React, { useContext } from "react"
-import { useEffect, useState } from "react/cjs/react.development"
+import React, { useContext, useEffect, useState  } from "react"
 import useShow from "../../recurring/useShowObject"
 import {IdeaContext} from "../../context.js/IdeaContext"
 import { useHistory, useParams } from "react-router"

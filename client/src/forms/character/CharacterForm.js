@@ -1,6 +1,5 @@
-import React from "react"
+import React, {useState} from "react"
 import { Link, useLocation, useParams } from "react-router-dom"
-import {useState } from "react/cjs/react.development"
 import { IdeaContext } from "../../context.js/IdeaContext"
 import Basics from "./basics"
 import FinalForm from "./FinalForm"
