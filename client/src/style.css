@@ -3,7 +3,7 @@ body, html{
     height:100%;
     font-family: 'Pangolin', cursive;
     background-image: linear-gradient(18deg, #9e9e9e, #e0e0e0);;
-    background-repeat: no-repeat;
+    background-repeat: inherit;
     background-size: cover;
 }
 .hidden{
@@ -318,6 +318,345 @@ margin: 0 50px;
     height:30px;
     font-size: 20px;
 }
+
+@media (min-width: 768px){
+    /*univeral styling*/
+body, html{
+    height:100%;
+    font-family: 'Pangolin', cursive;
+    background-image: linear-gradient(18deg, #9e9e9e, #e0e0e0);;
+    background-repeat: inherit;
+    background-size: cover;
+}
+.hidden{
+    display : none
+}
+
+textarea{
+    resize: none;
+    width:700px;
+    height:100px;
+    background-color: transparent;
+}
+input{
+    background-color: transparent;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    text-align: center;
+    width: 500px;
+    height: 100px;
+    border-bottom: 5px solid black;
+}
+.xcontainer{
+height:3000px
+
+}
+.notebook{
+    background-image: url(https://cdn.shopify.com/s/files/1/1413/2106/products/Vintage_Hand_Drawn_Notebook_Paper_12_x_12_ST_1024x1024.png?v=1502252447);
+    position: absolute;
+    width: 145%;
+    background-repeat: round;
+    background-size: cover;
+    font-size: 60px
+}
+.notebook>div{
+    display: inherit;
+    font-size: 60px
+}
+.notebook>div>p{
+    font-size: 100px;
+}
+
+/*hover styling*/
+.wips>div>h3:hover, .list>div>h3:hover{
+    opacity: 50%;
+    width:auto;
+    text-shadow: 2px 2px grey;
+}
+.wips>div>p:hover, .delete:hover{
+    opacity: 50%;
+    width:auto;
+    color: red;
+    text-shadow: 2px 2px grey;
+}
+.new:hover, .listDiv>button:hover, .addItem:hover{
+    width:auto;
+    color: goldenrod;
+    text-shadow: 2px 2px grey;
+}
+.editable:hover:after{
+    position: absolute;
+    content: attr(hover);
+    display: inline-block;
+    padding: 5px;
+    color: black;
+    font-size: 10px;
+}
+/*navbar*/
+nav{
+    text-align: center;
+}
+
+/*login in page styling*/
+.login{
+    position: absolute;
+    height:100%;
+    width:100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCCnmbcFI6u_FyjtOwZoB8dbfL_r5Mb32DXC_avAYyl9RAm9QCx5-i8P65m4I&usqp=CAc);
+}
+.style{
+   background-image: linear-gradient(45deg, #f5dede, #5a5858);
+    width: 700px;
+    margin: 0px 40px;
+    border-radius: 15%;
+    text-align: center;
+    position: relative;
+    left: 15%;
+    top: 20%;
+    font-size: 40px;
+}
+.style>form>input{
+    margin:15px
+}
+.logout{
+    position: relative;
+    left: 50%;
+    font-size: 60px;
+}
+/*homepage styling*/
+.homepage>div>h1{
+    grid-column: 1/2;
+}
+.new{
+    grid-column: 1/3;
+}
+.homepage>div{
+width: 80%;
+}
+.wips{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-column-gap: 30px;
+    grid-column: 1/3;
+    height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.wips>div{
+    background-image: none;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    width: 100%;
+    background-color: black;
+}
+.wips>div>p,.wips>div>h3{
+    font-size: 80px;
+    width: auto;
+    height: auto;
+    margin: 0 15px;
+    background-color: aliceblue;
+}
+.wips>div>h3{
+margin-top: 18px;
+}
+
+/*Idea page*/
+.idea{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-column: 1/3;
+    height: 300px;
+    margin:0px 0px 0px 210px;
+}
+/*plot page*/
+.plotContainer > .listDiv{
+    padding-top: 0px;
+    font-size: 60px;
+    margin: 0 20px;
+}
+/*delete button*/
+.delete{
+    padding: 0 20px;
+    font-weight: bolder;
+    width:10px;
+    height:10px
+}
+/*navigation buttons*/
+
+button {
+    border: none;
+    background-color: transparent;
+    font-family: 'Pangolin', cursive;
+    font-size: 60px;
+}
+/*main button*/
+.main{
+    text-align: center;
+    grid-column: 1/3;
+}
+.main>button{
+    font-size:60px;
+}
+.main>button:hover:after, .type>p:hover:after, .quality>p:hover:after{
+    position: absolute;
+    content: attr(hover);
+    display: inline-block;
+    padding: 5px;
+    color: black;
+    font-size: 12px;
+    width:auto;
+}
+/* Dropdown */
+.dropbtn {
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    font-size: 60px;
+  }
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    margin: 5px 20px;
+  }
+  .type, .quality {
+    display: none;
+    position: absolute;
+    background-image: url(https://cdn.shopify.com/s/files/1/1413/2106/products/Vintage_Hand_Drawn_Notebook_Paper_12_x_12_ST_1024x1024.png?v=1502252447);
+    background-position:50%;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  .type> p , .quality > p {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    width:300px
+  }
+  .dropdown:hover .type,   .dropdown:hover .quality {display:block ;}
+
+
+/*styling for div form*/
+.title, .name{
+    text-align: center;
+    grid-column: 1/3;
+}
+.title>div>form>input, .name>div>form>input{
+    text-align: center;
+    grid-column: 1/3;
+    font-size: 60px;
+}
+
+.description{
+    position: relative;
+    top: 25px;
+    font-size: 60px;
+    line-height: 2;
+    grid-column: 1/3;
+    margin: 0px 0px 0px 125px
+    }
+.plotContainer>.description{
+    margin: 0 60px;
+}
+/* styling for the menu div */
+.menu{
+    height: 200px;
+    border: 2px solid;
+    border-radius: 5%;
+    grid-column: 1/3;
+    margin: 25px;
+}
+.highlight{
+    background-color: yellow;
+}
+.container{
+display:grid;
+grid-template-columns: repeat(2,1fr);
+margin: 0 50px;
+}
+.confirmsetting{
+    position: absolute;
+    width: 400px;
+    text-align: center;
+    background-image: url(https://cdn.shopify.com/s/files/1/1413/2106/products/Vintage_Hand_Drawn_Notebook_Paper_12_x_12_ST_1024x1024.png?v=1502252447);
+    background-position: right;
+    border: 2px solid;
+    height: 100px;
+    bottom: 35px;
+    display:grid;
+}
+.confirmplot{
+    position: absolute;
+    width: 400px;
+    text-align: center;
+    background-image: url(https://cdn.shopify.com/s/files/1/1413/2106/products/Vintage_Hand_Drawn_Notebook_Paper_12_x_12_ST_1024x1024.png?v=1502252447);
+    background-position: right;
+    border: 2px solid;
+    height: 100px;
+    top: 275px;
+    display:grid;
+}
+
+/*styling for array form div*/
+.prompt:hover:after{
+    position: absolute;
+    content: attr(hover);
+    display: inline-block;
+    color: black;
+    font-size: 13px;
+}
+.subjectList{
+    height: 150px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.subjectList>div{
+    display:flex;
+    margin: 0 20px;
+}
+.new{
+    text-align: center;
+    font-size: 60px;
+}
+.addItem{
+    position: relative;
+    left: 211px;
+    top: -33px;
+}
+.arrayDiv{
+    width: 75%;
+    margin:auto;
+}
+/*list div styling*/
+.listDiv{
+    padding-top: 20px;
+    font-size: 60px;
+    margin:auto;
+}
+.list{
+    margin: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 150px;
+}
+.list>div{
+    display:flex;
+    margin: 0 20px;
+}
+.listDiv>button{
+    height:30px;
+    font-size: 60px;
+}
+     
+}
+
 
 
 

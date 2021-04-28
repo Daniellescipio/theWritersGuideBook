@@ -47,7 +47,7 @@ function IdeaPage(){
 
     if(idea._id){
         return(
-            <div className = 'notebook ideaContainer'>
+            <div className = 'notebook xcontainer'>
                 <Navbar idea = {idea._id} type = {idea}/>
                 <div>
                     <FormDiv  

@@ -45,7 +45,7 @@ function MainPage(){
           )          
   })
     return(
-        <div className = 'notebook homepage'>
+        <div className = 'notebook xcontainer'>
             <div>
             <h1>Written By: {user.username}</h1>
             <button className = 'logout' onClick = {logout}>logout</button>
